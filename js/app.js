@@ -19,6 +19,7 @@ let cards = [
 ];
 let openCard = [];
 let openCardId = [];
+let matchPair = 0;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -97,10 +98,10 @@ function clickCard() {
             // openCard[1][0].classList.add("match");
             // $(openCard[0]).off('click');
             // $(openCard[1]).off('click');
-            // matchFound += 1;
+            matchPair += 1;
             // moves++;
             removeOpenCards();
-            // findWinner();
+            allMatch();
             } 
             else {
                 document.getElementById(openCardId[0]).className = 'card';
@@ -118,6 +119,36 @@ function clickCard() {
           }
     });
 }
+
+function allMatch() {
+  
+    if (matchPair === 8) {
+        
+        console.log("Cool!");
+        let winner = document.getElementById("myPopup");
+        winner.style.display = "block";
+
+      // var modal = document.getElementById('win-popup');
+      // var span = document.getElementsByClassName("close")[0];
+  
+      // $("#total-moves").text(moves);
+      // $("#total-stars").text(starRating);
+  
+      // modal.style.display = "block";
+  
+    // when the user clicks on <span> (x), close the modal
+      // span.onclick = function() {
+        //   modal.style.display = "none";
+      // }
+  
+     // $("#play-again-btn").on("click", function() {
+        //  location.reload()
+     // });
+  
+     // clearInterval(timer);  
+  
+   }
+  }
 
 // call functions
 shuffleCard();
