@@ -38,13 +38,22 @@ function shuffleCard() {
     let cardList = shuffle(cards);
     let cardDeck = document.querySelector('.deck');
     cardDeck.innerHTML = '';
+    /*
     cardList.forEach(function(card) {
       let deckLi = document.createElement('li');
       deckLi.className = 'card';
       deckLi.innerHTML = '<i class="fa ' + card + '"></i>';
       cardDeck.appendChild(deckLi);
     })
+    */
+   for (let i = 0; i < cardList.length; i++) {
+    let deckLi = document.createElement('li');
+    deckLi.className = 'card';
+    deckLi.setAttribute("id", i);
+    deckLi.innerHTML = '<i class="fa ' + cardList[i] + '"></i>';
+    cardDeck.appendChild(deckLi);
   }
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -57,5 +66,17 @@ function shuffleCard() {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
- // call functions
- shuffleCard();
+
+function clickCard() {
+    let cardDeck = document.querySelector('.deck');
+    // https://stackoverflow.com/questions/17636043/cannot-add-click-events-to-list-items
+    cardDeck.addEventListener("click",function(e) {
+        if(e.target && e.target.nodeName == "LI") {
+            e.target.className = 'card open show';
+        }
+    });
+}
+
+// call functions
+shuffleCard();
+clickCard();
