@@ -17,6 +17,8 @@ let cards = [
     "fa-bicycle", 
     "fa-bomb"
 ];
+let openCard = [];
+let openCardId = [];
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -38,21 +40,22 @@ function shuffleCard() {
     let cardList = shuffle(cards);
     let cardDeck = document.querySelector('.deck');
     cardDeck.innerHTML = '';
-    /*
+/*
     cardList.forEach(function(card) {
       let deckLi = document.createElement('li');
       deckLi.className = 'card';
       deckLi.innerHTML = '<i class="fa ' + card + '"></i>';
       cardDeck.appendChild(deckLi);
     })
-    */
-   for (let i = 0; i < cardList.length; i++) {
-    let deckLi = document.createElement('li');
-    deckLi.className = 'card';
-    deckLi.setAttribute("id", i);
-    deckLi.innerHTML = '<i class="fa ' + cardList[i] + '"></i>';
-    cardDeck.appendChild(deckLi);
-  }
+*/
+    for (let i = 0; i < cardList.length; i++) {
+        let deckLi = document.createElement('li');
+        deckLi.setAttribute("class", "card");
+        deckLi.setAttribute("id", i+1);
+        deckLi.innerHTML = '<i class="fa ' + cardList[i] + '"></i>';
+        cardDeck.appendChild(deckLi);
+      }
+      
 }
 
 /*
@@ -66,14 +69,53 @@ function shuffleCard() {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+// reset openCard.length to 0
+function removeOpenCards() {
+    openCard = [];
+    openCardId = [];
+  }
 
 function clickCard() {
     let cardDeck = document.querySelector('.deck');
     // https://stackoverflow.com/questions/17636043/cannot-add-click-events-to-list-items
     cardDeck.addEventListener("click",function(e) {
+        
         if(e.target && e.target.nodeName == "LI") {
             e.target.className = 'card open show';
         }
+
+        openCard.push(e.target.innerHTML);
+        openCardId.push(e.target.id);
+        console.log(openCard[openCard.length-1]);
+        
+        if (openCard.length === 2) {
+            if (openCard[0] === openCard[1]) {
+            // console.log(openCard[0]+"="+openCard[1]);
+            document.getElementById(openCardId[0]).className = 'card match';
+            document.getElementById(openCardId[1]).className = 'card match';
+            // openCard[0][0].classList.add("match");
+            // openCard[1][0].classList.add("match");
+            // $(openCard[0]).off('click');
+            // $(openCard[1]).off('click');
+            // matchFound += 1;
+            // moves++;
+            removeOpenCards();
+            // findWinner();
+            } 
+            else {
+                document.getElementById(openCardId[0]).className = 'card';
+                document.getElementById(openCardId[1]).className = 'card';
+                removeOpenCards();
+            // e.target.className = 'card';
+            // openCard[0][0].classList.add("wrong");
+            // openCard[1][0].classList.add("wrong");
+            // set timeout to remove "show" and "open" class
+            // setTimeout(removeClasses, 1100);
+            // reset openCard.length to 0
+            // setTimeout(removeOpenCards, 1100);
+            // moves++;
+            }
+          }
     });
 }
 
