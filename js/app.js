@@ -39,7 +39,7 @@ function shuffle(array) {
     return array;
 }
 
-// shuffle the list of cards
+// shuffles the cards randomly
 function shuffleCard() {
     let cardList = shuffle(cards);
     let cardDeck = document.querySelector('.deck');
@@ -138,6 +138,7 @@ function allMatch() {
         });
 
         document.querySelector('#total-moves').textContent = moves;
+        document.querySelector('#total-stars').textContent = starRating;
 
       // var modal = document.getElementById('win-popup');
       // var span = document.getElementsByClassName("close")[0];
@@ -156,7 +157,7 @@ function allMatch() {
         //  location.reload()
      // });
   
-     // clearInterval(timer);  
+     clearInterval(timer);  
   
    }
   }
@@ -172,9 +173,9 @@ function counterTime() {
         timer = setInterval( function(){
             document.querySelector('.seconds').innerHTML = time(++sec % 60);
             document.querySelector('.minutes').innerHTML = time(parseInt(sec / 60, 10));
-          //$(".seconds").html(time(++sec % 60));
-          //$(".minutes").html(time(parseInt(sec / 60, 10)));
-        }, 1000);
+            document.querySelector('.popup-seconds').innerHTML = time(++sec % 60);
+            document.querySelector('.popup-minutes').innerHTML = time(parseInt(sec / 60, 10));
+            }, 1000);
     }
 })
 }
@@ -194,7 +195,15 @@ function counterMoves() {
     }
   }
 
+// function to restart the game
+function restartGame() {
+    document.querySelector('#restart').addEventListener("click",function() {
+        location.reload()
+    });
+    }
+
 // call functions
 shuffleCard();
 clickCard();
 counterTime()
+restartGame()

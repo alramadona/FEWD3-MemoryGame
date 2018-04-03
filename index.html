@@ -24,23 +24,23 @@
             </ul>
             <span class="moves">0</span> Moves
             <div class="restart">
-                <i class="fa fa-repeat"></i>
                 <span id="timer-text">Timer: </span>
                 <label class="minutes">00</label>:<label class="seconds">00</label>
+                <i class="fa fa-repeat" id="restart"></i>
             </div>
         </section>
 
         <ul class="deck">
         </ul>
     </div>
-
+    
+    <!-- congratulations popup -->
     <div class="popup" id="myPopup">
-        <!-- popup content -->
         <div class="popup-content">
-            <!-- <span class="close">&times;</span> -->
             <h1>Congratulations!</h1>
-            <h3>You completed the game in <span class="time">0</span> miliseconds.</h3>
-            <h3>Total moves: <span id="total-moves">0</span><span id="star-rating-text"> Star Rating: </span><span id="total-stars">0</span> out of 3</h3>
+            <h3>You completed the game in <span class="popup-minutes">0</span> minutes and <span class="popup-seconds">0</span> seconds.</h3>
+            <h3>Total moves: <span id="total-moves">0</span>
+                Star Rating: <span id="total-stars">0</span> out of 3</h3>
             <button id="play-again-btn">play again!</button>
         </div>
     </div>
