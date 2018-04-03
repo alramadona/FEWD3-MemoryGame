@@ -20,6 +20,7 @@ let cards = [
 let openCard = [];
 let openCardId = [];
 let matchPair = 0;
+let moves = 0;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -99,9 +100,9 @@ function clickCard() {
             // $(openCard[0]).off('click');
             // $(openCard[1]).off('click');
             matchPair += 1;
-            // moves++;
             removeOpenCards();
             allMatch();
+            moves++
             } 
             else {
                 document.getElementById(openCardId[0]).className = 'card';
@@ -114,7 +115,7 @@ function clickCard() {
             // setTimeout(removeClasses, 1100);
             // reset openCard.length to 0
             // setTimeout(removeOpenCards, 1100);
-            // moves++;
+            moves++
             }
           }
     });
@@ -127,10 +128,13 @@ function allMatch() {
         console.log("Cool!");
         let winner = document.getElementById("myPopup");
         winner.style.display = "block";
-
+        
+        // https://stackoverflow.com/questions/3715047/how-to-reload-a-page-using-javascript
         document.querySelector('#play-again-btn').addEventListener("click",function() {
             location.reload()
         });
+
+        document.querySelector('#total-moves').textContent = moves;
 
       // var modal = document.getElementById('win-popup');
       // var span = document.getElementsByClassName("close")[0];
@@ -154,6 +158,23 @@ function allMatch() {
    }
   }
 
+// start timer on the first card click
+function counter() {
+    let clicks = 0;
+    document.querySelector('.card').addEventListener("click",function() {
+        clicks += 1;
+    });
+    if (clicks === 1) {
+        let t1 = new Date().getTime();
+        if (matchPair === 8) { 
+            let t2 = new Date().getTime();
+            let diff = t2 - t1;
+            document.querySelector('.time').innerHTML = diff;
+        }
+    }
+}
+
 // call functions
 shuffleCard();
 clickCard();
+counter();
