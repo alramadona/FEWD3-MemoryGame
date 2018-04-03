@@ -128,6 +128,10 @@ function allMatch() {
         let winner = document.getElementById("myPopup");
         winner.style.display = "block";
 
+        document.querySelector('#play-again-btn').addEventListener("click",function() {
+            location.reload()
+        });
+
       // var modal = document.getElementById('win-popup');
       // var span = document.getElementsByClassName("close")[0];
   
