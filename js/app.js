@@ -21,6 +21,7 @@ let openCard = [];
 let openCardId = [];
 let matchPair = 0;
 let moves = 0;
+let starRating = "3";
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -118,7 +119,8 @@ function clickCard() {
             moves++
             }
           }
-    });
+          counterMoves();
+    })//;
 }
 
 function allMatch() {
@@ -159,7 +161,7 @@ function allMatch() {
   }
 
 // start timer on the first card click
-function counter() {
+function counterTime() {
     let clicks = 0;
     document.querySelector('.card').addEventListener("click",function() {
         clicks += 1;
@@ -174,7 +176,22 @@ function counter() {
     }
 }
 
+function counterMoves() {
+    let list = document.querySelector(".stars");
+    document.querySelector('.moves').textContent = moves;
+
+    if (moves > 0 && moves <= 16) {
+      starRating = starRating;
+    } else if (moves > 16 && moves <= 24) {
+        list.innerHTML= '<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>' 
+      starRating = "2";
+    } else if (moves > 24) {
+        list.innerHTML= '<li><i class="fa fa-star"></i></li>'
+      starRating = "1";
+    }
+  }
+
 // call functions
 shuffleCard();
 clickCard();
-counter();
+counterTime();
