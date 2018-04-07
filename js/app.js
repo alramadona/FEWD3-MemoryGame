@@ -61,36 +61,39 @@ function removeOpenCards() {
   }
 
 // open close card
-function clickCard() {
-    let cardDeck = document.querySelector('.deck');
-    cardDeck.addEventListener("click", function(e) {
-        
-        // partly from https://stackoverflow.com/questions/17636043/cannot-add-click-events-to-list-items
-        if(e.target && e.target.nodeName == "LI") {
-            e.target.className = 'card open show';
-        }
 
-        openCard.push(e.target.innerHTML);
-        openCardId.push(e.target.id);
-        // console.log(openCard[openCard.length-1]);
+function clickCard() {
+    // adds a listener for clicks
+    document.querySelector('.deck').addEventListener('click', function (evt) {
         
-        if (openCard.length === 2) {
-            if (openCard[0] === openCard[1]) {
-                document.getElementById(openCardId[0]).className = 'card match';
-                document.getElementById(openCardId[1]).className = 'card match';
-                matchPair += 1;
-                removeOpenCards();
-                allMatch();
-                moves++
-            } else {
-                document.getElementById(openCardId[0]).className = 'card';
-                document.getElementById(openCardId[1]).className = 'card';
-                removeOpenCards();
-                moves++
+        if (evt.target.nodeName === 'LI' && evt.target.className === 'card') {
+            evt.target.className = 'card open show';
+            openCard.push(evt.target.innerHTML);
+            openCardId.push(evt.target.id);
+            
+            if (openCard.length === 2) {
+                if (openCard[0] === openCard[1] && openCardId[0] === openCardId[1]){
+                    evt.target.className = 'card';
+                    removeOpenCards();
+                } else if (openCard[0] === openCard[1]) {
+                    document.getElementById(openCardId[0]).className = 'card match';
+                    document.getElementById(openCardId[1]).className = 'card match';
+                    matchPair += 1;
+                    removeOpenCards();
+                    allMatch();
+                    moves++;
+                } else {
+                    document.getElementById(openCardId[1]).className = 'card open show';
+                    setTimeout(function () {
+                        document.getElementById(openCardId[0]).className = 'card';
+                        document.getElementById(openCardId[1]).className = 'card';
+                        removeOpenCards();
+                        moves++;
+                    }, 250);
+                }
             }
         }
-        counterMoves();
-    })
+    });
 }
 
 // popup filling
@@ -155,5 +158,5 @@ function restartGame() {
 // call functions
 shuffleCard();
 clickCard();
-counterTime()
-restartGame()
+counterTime();
+restartGame();
