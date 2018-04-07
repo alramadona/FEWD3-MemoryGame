@@ -39,7 +39,7 @@ function shuffle(array) {
     return array;
 }
 
-// shuffles the cards randomly
+// shuffle the cards randomly
 function shuffleCard() {
     let cardList = shuffle(cards);
     let cardDeck = document.querySelector('.deck');
@@ -60,10 +60,9 @@ function removeOpenCards() {
     openCardId = [];
   }
 
-// open close card
-
+// open close cards
 function clickCard() {
-    // adds a listener for clicks
+    // add a listener for clicks
     document.querySelector('.deck').addEventListener('click', function (evt) {
         
         if (evt.target.nodeName === 'LI' && evt.target.className === 'card') {
@@ -98,7 +97,7 @@ function clickCard() {
     });
 }
 
-// popup filling
+// filling the popup
 function allMatch() {
     if (matchPair === 8) {
         //console.log("Cool!");
@@ -117,7 +116,7 @@ function allMatch() {
     }
 }
 
-// starting timer ++
+// starting the timer ++
 function counterTime() {
     let clicks = 0;
     document.querySelector('.card').addEventListener("click", function() {
