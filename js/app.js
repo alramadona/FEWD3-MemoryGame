@@ -24,7 +24,7 @@ let moves = 0;
 let starRating = "3";
 let timer;
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+// shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -78,17 +78,19 @@ function clickCard() {
                 } else if (openCard[0] === openCard[1]) {
                     document.getElementById(openCardId[0]).className = 'card match';
                     document.getElementById(openCardId[1]).className = 'card match';
-                    matchPair += 1;
                     removeOpenCards();
-                    allMatch();
                     moves++;
-                } else {
+                    counterMoves();
+                    matchPair++;
+                    allMatch();
+                    } else {
                     document.getElementById(openCardId[1]).className = 'card open show';
                     setTimeout(function () {
                         document.getElementById(openCardId[0]).className = 'card';
                         document.getElementById(openCardId[1]).className = 'card';
                         removeOpenCards();
                         moves++;
+                        counterMoves();
                     }, 250);
                 }
             }
@@ -105,12 +107,12 @@ function allMatch() {
         
         // partly from https://stackoverflow.com/questions/3715047/how-to-reload-a-page-using-javascript
         document.querySelector('#play-again-btn').addEventListener("click",function() {
-            location.reload()
+            location.reload();
         });
         
         document.querySelector('#total-moves').textContent = moves;
         document.querySelector('#total-stars').textContent = starRating;
-
+        
         clearInterval(timer);
     }
 }
@@ -118,7 +120,7 @@ function allMatch() {
 // starting timer ++
 function counterTime() {
     let clicks = 0;
-    document.querySelector('.card').addEventListener("click",function() {
+    document.querySelector('.card').addEventListener("click", function() {
         clicks += 1;
         if (clicks === 1) {
             let sec = 0;
